@@ -17,7 +17,6 @@ export default function AddTask({ onAdd }) {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="New task..."
       />
-      <button>Add</button>
     </form>
   );
 }

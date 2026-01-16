@@ -5,7 +5,14 @@ import AddTask from "./components/AddTask";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
+    return true; // "all"
+  });
 
   useEffect(() => {
     getTasks()
@@ -43,10 +50,21 @@ function App() {
       <h1>📝 Task Manager</h1>
       <AddTask onAdd={handleAddTask} />
       <TaskList 
-        tasks={tasks}
+        tasks={filteredTasks}
         onDelete={handleDeleteTask}
         onToggle={handleToggle} 
       />
+      <div style={{ marginTop: "1rem" }}>
+        <button onClick={() => setFilter("all")}>
+          All
+        </button>
+        <button onClick={() => setFilter("active")}>
+          Active
+        </button>
+        <button onClick={() => setFilter("completed")}>
+          Completed
+        </button>
+      </div>
     </div>
   );
 }
